@@ -718,11 +718,12 @@ async function start() {
 
   // ---------- keeping it smooth ----------
   // Dynamic resolution: a smoothed frame time is compared with the screen's own pace. When frames run late
-  // for a second, the drawing resolution drops a small step (down to 0.6); after five calm seconds it
+  // for a second, the drawing resolution drops a small step (down to 0.6, or 0.9 on phones, where lower looked
+  // pixelated: owner, 16 November 2026); after five calm seconds it
   // climbs back by a smaller step. A step up that brings the lateness back lowers the ceiling, so it
   // doesn't see-saw. If even a reduced picture can't keep up, the scene settles on a steady 30 frames a
   // second (every other screen refresh) instead of a jittery 40 to 55. Weak devices start there.
-  const dyn = { ratio: renderer.getPixelRatio(), max: renderer.getPixelRatio(), ceiling: renderer.getPixelRatio(), min: Math.min(0.6, renderer.getPixelRatio()),
+  const dyn = { ratio: renderer.getPixelRatio(), max: renderer.getPixelRatio(), ceiling: renderer.getPixelRatio(), min: Math.min(small ? 0.9 : 0.6, renderer.getPixelRatio()),
     ema: 0, refresh: 16.7, raf: 0, lastRaf: 0, last: 0, slow: 0, calm: 0, cool: 0, raisedAt: -1e9, locked: tier.lock30, crawl: 0 };
   const setRatio = (r) => { dyn.ratio = Math.round(r * 100) / 100; renderer.setPixelRatio(dyn.ratio); resize(); };
   function trackRefresh(now) {                                    // the screen's pace, from the quickest steady rAF rhythm seen
