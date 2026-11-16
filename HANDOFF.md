@@ -146,6 +146,7 @@ Test switches on that address:
 
 ## Before release
 
+- **Film grain over the forest (16 November 2026):** phones draw the 3D at a lower resolution (down to 0.6 of a CSS pixel when struggling), which can look pixelated. At the owner's choice the light film grain (`img/grain.png`, the original 160 px tile) is back, but only over the forest (`--hero-grain` on `.hero__stage::before`); the rest of the page stays without it (`--grain: none`). The other option offered was raising the lowest resolution on phones (`dyn.min` in `js/hero-forest.js`).
 - **Link check:** `python3 tools/check-links.py` (from the repository root) crawls the new pages from `index.html` and reports any missing file, missing #section or link to an old page. It reported no problems on 16 November 2026; run it again before merging.
 - **Scroll cue:** the hero shows a ringed arrow that nudges downwards on every screen size (`.hero__hint`, `.hero__arrow`): bottom right with the text and progress bar on wide screens, centred under the hero text with the text on phones and tablets, and just the arrow in the corner on short landscape screens. It fades as the walk goes dark.
 - **Phone top bar:** below 981 px the EN / SK switch sits in the bar beside the burger (it is outside `<nav>`, in `.top__end`), and the burger shows only its lines; the word "Menu" stays for screen readers. While the menu is open the bar has no backdrop filter, which otherwise shrank the menu sheet to the bar's height.
